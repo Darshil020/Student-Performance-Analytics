@@ -11,6 +11,7 @@ Result <- nested_ifelse(Maths$G3)  #converting G3 to categorical Result
 
 Maths <- data.frame(Maths,Result) #appending the grades Result
 Maths = Maths[,-33]        #remove the G3
+Maths = Maths[,-31:-32]
 #Maths_factor <- lapply(Maths,as.factor)
 
 set.seed(2)
@@ -40,3 +41,4 @@ text(pruned_model,pretty=0)
 #check performance of the pruned model
 tree_pred = predict(pruned_model,testing_data,type="class")
 mean(tree_pred != testing_result) #8%
+
