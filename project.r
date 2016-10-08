@@ -40,3 +40,5 @@ text(pruned_model,pretty=0)
 #check performance of the pruned model
 tree_pred = predict(pruned_model,testing_data,type="class")
 mean(tree_pred != testing_result) #8%
+
+#akash
