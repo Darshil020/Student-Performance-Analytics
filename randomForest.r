@@ -1,7 +1,8 @@
-library(tree)
+library(randomForest)
+
 setwd("D:/Business Analytics/Business Analytics using R/Project Data")
 Maths=read.table("student-mat.csv",sep=";",header=TRUE)
-Por=read.table("student-por.csv",sep=";",header=TRUE)
+#Por=read.table("student-por.csv",sep=";",header=TRUE)
 
 head(Maths)
 #converting the result into catagorical
@@ -21,25 +22,8 @@ training_data = Maths[train,]
 testing_data = Maths[test,]
 testing_result = Result[test]
 
-#Decision tree
-tree_model = tree(Result~.,training_data)
-plot(tree_model)
-text(tree_model,pretty = 0)
-tree_pred = predict(tree_model,testing_data,type = 'class')
-mean(tree_pred != testing_result) #12.62%
-
-#Pruning the tree
-set.seed(3)
-cv_tree = cv.tree(tree_model,FUN = prune.misclass)
-plot(cv_tree$size,cv_tree$dev,type="b")
-
-#prunned model
-pruned_model = prune.misclass(tree_model,best = 4)
-plot(pruned_model)
-text(pruned_model,pretty=0)
-
-#check performance of the pruned model
-tree_pred = predict(pruned_model,testing_data,type="class")
-mean(tree_pred != testing_result) #8%
-
-
+#RandomForest 
+rfm = randomForest(Result~.,training_data)
+rmf_pred = predict(rfm,testing_data)
+mean(rmf_pred == testing_result) #92.42%
+table(rmf_pred,testing_result)
