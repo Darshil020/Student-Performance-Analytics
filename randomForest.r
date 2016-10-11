@@ -11,8 +11,6 @@ Result <- nested_ifelse(Maths$G3)  #converting G3 to categorical Result
 
 Maths <- data.frame(Maths,Result) #appending the grades Result
 Maths = Maths[,-33]        #remove the G3
-#Maths = Maths[,-31:-32]
-#Maths_factor <- lapply(Maths,as.factor)
 
 set.seed(2)
 train = sample(1:nrow(Maths),nrow(Maths)/2)
