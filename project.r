@@ -1,8 +1,7 @@
 library(tree)
-#setwd("D:/Business Analytics/Business Analytics using R/Project Data")
 Maths=read.table("student-mat.csv",sep=";",header=TRUE)
-
 head(Maths)
+
 #converting the result into catagorical
 nested_ifelse <- function(x)
   ifelse (x < 10,"fail",ifelse(x < 12, "D", ifelse(x < 14,"C",ifelse(x < 16, "B","A")) ))
@@ -10,8 +9,8 @@ Result <- nested_ifelse(Maths$G3)  #converting G3 to categorical Result
 
 Maths <- data.frame(Maths,Result) #appending the grades Result
 Maths = Maths[,-33]        #remove the G3
-#Maths = Maths[,-31:-32]
 
+#Dividing the train and test data
 set.seed(2)
 train = sample(1:nrow(Maths),nrow(Maths)/2)
 test = -train
@@ -21,7 +20,7 @@ testing_result = Result[test]
 
 #Decision tree
 tree_model = tree(Result~.,training_data)
-plot(tree_model,main="Pruned Regression Tree for Mileage")
+plot(tree_model,main="Regression Tree for grade")
 text(tree_model,pretty = 0)
 tree_pred = predict(tree_model,testing_data,type = 'class')
 mean(tree_pred == testing_result) #71.71%
