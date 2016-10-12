@@ -46,7 +46,7 @@ MP_cor_melt
 par(mfrow=c(1,2))
 boxplot( Maths$G3, data = Maths,col="yellow",main = "Maths", ylab = "G3 Score")
 boxplot(Por$G3, data = Por,col = "green", main = "Portugese", ylab = "G3 Score")
-=======
+
 G <- data.frame(Maths$G1,Maths$G2 ,Maths$G3)
 correlation <- as.matrix(cor(G))
->>>>>>> origin/master
+
