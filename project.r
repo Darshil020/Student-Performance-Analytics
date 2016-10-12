@@ -1,5 +1,5 @@
 library(tree)
-setwd("D:/Business Analytics/Business Analytics using R/Project Data")
+#setwd("D:/Business Analytics/Business Analytics using R/Project Data")
 Maths=read.table("student-mat.csv",sep=";",header=TRUE)
 
 head(Maths)
@@ -21,10 +21,11 @@ testing_result = Result[test]
 
 #Decision tree
 tree_model = tree(Result~.,training_data)
-plot(tree_model)
+plot(tree_model,main="Pruned Regression Tree for Mileage")
 text(tree_model,pretty = 0)
 tree_pred = predict(tree_model,testing_data,type = 'class')
 mean(tree_pred == testing_result) #71.71%
+table(tree_pred,testing_result)
 
 #Pruning the tree
 set.seed(3)
