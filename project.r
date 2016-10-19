@@ -9,6 +9,7 @@ Result <- nested_ifelse(Maths$G3)  #converting G3 to categorical Result
 
 Maths <- data.frame(Maths,Result) #appending the grades Result
 Maths = Maths[,-33]        #remove the G3
+Maths = Maths[,-30]
 
 #Dividing the train and test data
 set.seed(2)
