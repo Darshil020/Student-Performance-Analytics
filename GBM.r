@@ -1,16 +1,18 @@
 library(gbm)
-setwd("D:/Business Analytics/Business Analytics using R/Project Data")
+setwd("C:/Users/akash/Documents/GitHub/StudentPerformancePrediction")
 Maths=read.table("student-mat.csv",sep=";",header=TRUE)
 head(Maths)
 
 #converting the result into catagorical
-nested_ifelse <- function(x)
-  ifelse (x < 10,"fail",ifelse(x < 12, "D", ifelse(x < 14,"C",ifelse(x < 16, "B","A")) ))
-Result <- nested_ifelse(Maths$G3)  #converting G3 to categorical Result
 
+nested_ifelse <- function(x) 
+  ifelse (x < 10, "Fail","Pass")
+
+Result <- nested_ifelse(Maths$G3)  #converting G3 to categorical Result
+Result
 Maths <- data.frame(Maths,Result) #appending the grades Result
-Maths = Maths[,-33]        #remove the G3
-Maths = Maths[,-30]
+Maths = Maths[,-31:-33]        #remove the G3
+#Maths = Maths[,-30]
 
 
 #Dividing the train and test data
@@ -38,12 +40,7 @@ for(colname in colnames(test_answer))({
   coldata=test_answer[,colname]
   test_answer$Answer[which(coldata==1)]=colname
 })
-test_answer$Answer<-gsub(".40","",test_answer$Answer)
+test_answer$Answer<-gsub(".25","",test_answer$Answer)
 test_answer$Answer<- as.factor(test_answer$Answer)
-#mean(test_answer$Answer == testing_result,na.rm = FALSE)
+mean(test_answer$Answer == testing_result,na.rm = FALSE)
 table(test_answer$Answer,testing_result) #88.38% 15,29,27,41,63
-
-
-
-
-
