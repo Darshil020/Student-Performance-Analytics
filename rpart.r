@@ -21,8 +21,17 @@ testing_data = Maths[test,]
 testing_result = Result[test]
 
 #Decision tree rpart
-tree_model = rpart(Result~.,training_data,method = 'class')
+tree_model = rpart(Result~famrel+absences+G1+G2,training_data,method = 'class',control = rpart.control(cp=0.01))
 rpart.plot(tree_model)
-text(tree_model,pretty = 0)
+plotcp(tree_model)
 tree_pred = predict(tree_model,testing_data,type = 'class')
-mean(tree_pred == testing_result) #76.26%
+mean(tree_pred == testing_result) #81.81%
+table(tree_pred,testing_result)
+
+#pruning the tree
+pfit<- prune(tree_model,cp=tree_model$cptable[which.min(tree_model$cptable[,"xerror"]),"CP"])
+rpart.plot(pfit)
+plotcp(pfit)
+tree_pred = predict(pfit,testing_data,type = 'class')
+mean(tree_pred == testing_result) #80.80%
+table(tree_pred,testing_result)

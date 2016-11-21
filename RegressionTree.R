@@ -3,7 +3,8 @@ setwd("D:/Business Analytics/Business Analytics using R/Project Data")
 Maths=read.table("student-mat.csv",sep=";",header=TRUE)
 
 head(Maths)
-Maths$G3 = as.factor(Maths$G3)
+#Maths$G3 = as.factor(Maths$G3)
+
 set.seed(2)
 train = sample(1:nrow(Maths),nrow(Maths)/2)
 test = -train
