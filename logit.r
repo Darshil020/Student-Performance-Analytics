@@ -7,7 +7,7 @@ Por=read.table("student-por.csv",sep=";",header=TRUE)
 head(Maths)
 #converting the result into catagorical
 nested_ifelse <- function(x)
-  ifelse (x < 10,"fail","Pass")
+  ifelse (x < 10,0,1)
 Result <- nested_ifelse(Maths$G3)  #converting G3 to binary (pass-fail)
 
 Maths <- data.frame(Maths,Result) #appending the grades Result
@@ -26,8 +26,8 @@ result_model <- glm(Result~.,data = training_data, family = binomial)
 summary(result_model)
 result_model <- glm(Result~ age+Mjob+failures+schoolsup+nursery+goout+absences,data = training_data, family = binomial)  #only significant variable used
 predict_result <- predict(result_model,testing_data,type = "response")
-model_pred_result = rep("Fail",198)
-model_pred_result[predict_result>0.5] = "Pass"
+model_pred_result = rep(0,198)
+model_pred_result[predict_result>0.5] = 1
 
 #confusionmatrix
 table(model_pred_result,testing_result)
