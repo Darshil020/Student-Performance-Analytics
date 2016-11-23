@@ -20,7 +20,7 @@ testing_data = Maths[test,]
 testing_result = Result[test]
 
 #RandomForest 
-rfm = randomForest(Result~G2,training_data,importance = TRUE,nTree = 2000)
+rfm = randomForest(Result~absences+G1+G2,training_data,importance = TRUE,nTree = 2000)
 rmf_pred = predict(rfm,testing_data)
 mean(rmf_pred == testing_result) #80.80%
 table(rmf_pred,testing_result)
