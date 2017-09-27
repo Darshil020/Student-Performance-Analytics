@@ -1,5 +1,5 @@
 
-Project Name: Analysing Student Data
+Project Name: Student Performance Analytics
 
 Definition: Predict student performance in secondary education (high school).
 
